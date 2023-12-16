@@ -4,7 +4,7 @@ import './App.css';
 import { AppProvider } from "./context/AppContext";
 import { useContext } from "react";
 import AppContext from "./context/AppContext";
-import ResponsiveAppBar from './components/AppBar';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
 
 function App() {
   return (
