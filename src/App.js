@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import { Routes, Route} from "react-router-dom";
 import './App.css';
+import { AppProvider } from "./context/AppContext";
+import { useContext } from "react";
+import AppContext from "./context/AppContext";
 
 function App() {
   return (
@@ -15,4 +18,13 @@ function App() {
   );
 }
 
-export default App;
+const AppWrapper = () => {
+  return (
+    <AppProvider>
+      <App />
+    </AppProvider>
+  )
+}
+
+
+export default AppWrapper;
