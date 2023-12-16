@@ -5,7 +5,6 @@ import { useContext } from "react";
 import AppContext from "./context/AppContext";
 
 function App() {
-  // const {} = useContext(AppContext)
   return (
     <div className="App">
       <p>
