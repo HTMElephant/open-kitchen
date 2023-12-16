@@ -4,10 +4,12 @@ import './App.css';
 import { AppProvider } from "./context/AppContext";
 import { useContext } from "react";
 import AppContext from "./context/AppContext";
+import ResponsiveAppBar from './components/ResponsiveAppBar';
 
 function App() {
   return (
     <div className="App">
+      <ResponsiveAppBar />
       <Routes>
         <Route path="/" />
       </Routes>
