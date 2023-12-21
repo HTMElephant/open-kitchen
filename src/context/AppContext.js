@@ -11,12 +11,12 @@ export const AppProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   const cachedUser = localStorage.getItem("user");
-  //   if (cachedUser) {
-  //     setUser(JSON.parse(cachedUser));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const cachedUser = localStorage.getItem("user");
+    if (cachedUser) {
+      setUser(JSON.parse(cachedUser));
+    }
+  }, []);
 
   const login = async (email, password) => {
     try{
