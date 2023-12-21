@@ -5,15 +5,8 @@ import { Typography, Button, TextField, Grid, Link } from "@mui/material";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isError, setIsError] = useState(false);
 
   const { login, loginError } = useContext(AppContext);
-
-  const handleLoginError = () => {
-    if (loginError === true) {
-      return "Invalid credentials, Please try again.";
-    }
-  };
 
   const handleClick = () => {
     login(email, password);
@@ -47,7 +40,7 @@ const Login = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           error={loginError}
-          helperText={handleLoginError()}
+          helperText={loginError && "Invalid credentials, Please try again."}
         />
       </Grid>
       <Grid item xs={6}>

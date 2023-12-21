@@ -25,7 +25,6 @@ export const AppProvider = ({ children }) => {
         email,
         password,
       });
-      console.log(response);
       if (response.data) {
         setUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -37,7 +36,7 @@ export const AppProvider = ({ children }) => {
       }
     } catch (err) {
       setLoginError(true)
-      console.log(err)
+      console.error(err)
     }
   };
 
