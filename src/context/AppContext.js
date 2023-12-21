@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("user");
     if (cachedUser) {
-      setUser(JSON.parse(cachedUser));
+      setLoggedInUser(JSON.parse(cachedUser));
     }
   }, []);
 
@@ -26,7 +26,7 @@ export const AppProvider = ({ children }) => {
         password,
       });
       if (response.data) {
-        setUser(response.data);
+        setLoggedInUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
         setLoginError(false)
         navigate("/")
@@ -43,7 +43,7 @@ export const AppProvider = ({ children }) => {
   return (
   <AppContext.Provider 
   value={{
-    user,
+    loggedInUser,
     login,
     loginError
   }}>
