@@ -3,6 +3,7 @@ import { Routes, Route} from "react-router-dom";
 import './App.css';
 import { AppProvider } from "./context/AppContext";
 import { useContext } from "react";
+import Login from './Components/Login';
 import AppContext from "./context/AppContext";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <p>
         Open Kitchen
