@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { Avatar } from "@mui/material";
 
 const ResponsiveAppBar = () => {
-  const { loggedInUser, user } = useContext(AppContext);
+  const { loggedInUser } = useContext(AppContext);
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/login");
@@ -24,7 +24,7 @@ const ResponsiveAppBar = () => {
     return initials
   }
 
-  if (loggedInUser.isEmpty) {
+  if (!loggedInUser || loggedInUser.isEmpty) {
     buttonDisplay = (
       <Button
         variant="contained"
@@ -35,7 +35,7 @@ const ResponsiveAppBar = () => {
       </Button>
     );
   } else {
-    let initials = getUserInitials();
+    let initials = getUserInitials(loggedInUser);
     buttonDisplay = (
       <Avatar>{initials}</Avatar>
     )
