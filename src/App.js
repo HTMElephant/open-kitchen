@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { AppProvider } from "./context/AppContext";
 import { useContext } from "react";
-import Login from "./components/Login";
+import Login from './components/Login';
 import AppContext from "./context/AppContext";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
