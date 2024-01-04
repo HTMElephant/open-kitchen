@@ -41,7 +41,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null);
+    setUser({});
     localStorage.removeItem("user");
   };
 
