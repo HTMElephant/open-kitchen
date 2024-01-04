@@ -7,19 +7,32 @@ import { useNavigate } from "react-router";
 import { concat, isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
 import { useContext } from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 
 const ResponsiveAppBar = () => {
   const { loggedInUser } = useContext(AppContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/login");
   };
+
+  const handleOpen = (e) => {
+    setAnchorEl(e.currentTarget);
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
+
   let buttonDisplay;
 
   const getUserInitials = (user) => {
-    let firstNameLetter = user.firstName.charAt(0);
-    let lastNameLetter = user.lastName.charAt(0);
+    console.log(user);
+    let firstNameLetter = user.first_name.charAt(0);
+    let lastNameLetter = user.last_name.charAt(0);
     let initials = concat(firstNameLetter, lastNameLetter)
     return initials
   }
@@ -37,7 +50,7 @@ const ResponsiveAppBar = () => {
   } else {
     let initials = getUserInitials(loggedInUser);
     buttonDisplay = (
-      <Avatar>{initials}</Avatar>
+      <Avatar onClick={(e) => handleOpen(e)}>{initials}</Avatar>
     )
   }
   return (
@@ -69,6 +82,19 @@ const ResponsiveAppBar = () => {
         </Grid>
         <Grid item>{buttonDisplay}</Grid>
       </Grid>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 };
