@@ -19,7 +19,7 @@ const ResponsiveAppBar = () => {
     navigate("/login");
   };
   const handleNavigate = (route) => {
-    navigate(`${route}`);
+    navigate(route);
   };
 
   const handleOpen = (e) => {
@@ -46,15 +46,6 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
             onClick={() => handleNavigate("/user/recipes")}
           >
             My Recipes
@@ -67,15 +58,6 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
             onClick={() => handleNavigate("/kitchens")}
           >
             My Kitchens
