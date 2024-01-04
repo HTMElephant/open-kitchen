@@ -35,14 +35,13 @@ const ResponsiveAppBar = () => {
   let buttonDisplay;
 
   const getUserInitials = (user) => {
-    console.log(user);
     let firstNameLetter = user.first_name.charAt(0);
     let lastNameLetter = user.last_name.charAt(0);
     let initials = concat(firstNameLetter, lastNameLetter);
     return initials;
   };
 
-  if (!loggedInUser || loggedInUser.isEmpty) {
+  if (!loggedInUser || isEmpty(loggedInUser)) {
     buttonDisplay = (
       <Button
         variant="contained"
@@ -99,8 +98,8 @@ const ResponsiveAppBar = () => {
         }}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleLogout}>Create Recipe</MenuItem>
-        <MenuItem onClick={handleLogout}>Create Kitchen</MenuItem>
+        <MenuItem onClick={handleClose}>Create Recipe</MenuItem>
+        <MenuItem onClick={handleClose}>Create Kitchen</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </AppBar>
