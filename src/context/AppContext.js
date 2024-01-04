@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState({});
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate()
 
