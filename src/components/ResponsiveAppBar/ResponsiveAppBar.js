@@ -134,7 +134,7 @@ const ResponsiveAppBar = () => {
             OpenKitchen
           </Typography>
         </Grid>
-        {routes}
+        {loggedInUser ? routes : <></>}
         <Grid item>{buttonDisplay}</Grid>
       </Grid>
       <Menu
