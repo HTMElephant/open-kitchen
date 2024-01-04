@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import { Routes, Route} from "react-router-dom";
-import './App.css';
+import logo from "./logo.svg";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
 import { AppProvider } from "./context/AppContext";
 import { useContext } from "react";
-import Login from './components/Login';
+import Login from "./components/Login";
 import AppContext from "./context/AppContext";
-import ResponsiveAppBar from './components/ResponsiveAppBar';
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
 
 function App() {
   return (
@@ -15,9 +15,7 @@ function App() {
         <Route path="/" />
         <Route path="/login" element={<Login />} />
       </Routes>
-      <p>
-        Open Kitchen
-      </p>
+      <p>Open Kitchen</p>
     </div>
   );
 }
@@ -27,8 +25,7 @@ const AppWrapper = () => {
     <AppProvider>
       <App />
     </AppProvider>
-  )
-}
-
+  );
+};
 
 export default AppWrapper;
