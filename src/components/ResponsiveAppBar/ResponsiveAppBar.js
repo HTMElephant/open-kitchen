@@ -7,10 +7,10 @@ import { useNavigate } from "react-router";
 import { concat, isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
 import { useContext } from "react";
-import { Avatar, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem, Fade } from "@mui/material";
 
 const ResponsiveAppBar = () => {
-  const { loggedInUser } = useContext(AppContext);
+  const { loggedInUser, logout } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -21,11 +21,16 @@ const ResponsiveAppBar = () => {
 
   const handleOpen = (e) => {
     setAnchorEl(e.currentTarget);
-  }
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
-  }
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleClose();
+  };
 
   let buttonDisplay;
 
@@ -33,9 +38,9 @@ const ResponsiveAppBar = () => {
     console.log(user);
     let firstNameLetter = user.first_name.charAt(0);
     let lastNameLetter = user.last_name.charAt(0);
-    let initials = concat(firstNameLetter, lastNameLetter)
-    return initials
-  }
+    let initials = concat(firstNameLetter, lastNameLetter);
+    return initials;
+  };
 
   if (!loggedInUser || loggedInUser.isEmpty) {
     buttonDisplay = (
@@ -49,9 +54,7 @@ const ResponsiveAppBar = () => {
     );
   } else {
     let initials = getUserInitials(loggedInUser);
-    buttonDisplay = (
-      <Avatar onClick={(e) => handleOpen(e)}>{initials}</Avatar>
-    )
+    buttonDisplay = <Avatar onClick={(e) => handleOpen(e)}>{initials}</Avatar>;
   }
   return (
     <AppBar sx={{ bgcolor: "gray" }}>
@@ -87,13 +90,18 @@ const ResponsiveAppBar = () => {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'bottom',
+          vertical: "bottom",
+          horizontal: "right",
         }}
+        TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Create Recipe</MenuItem>
+        <MenuItem onClick={handleLogout}>Create Kitchen</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </AppBar>
   );
