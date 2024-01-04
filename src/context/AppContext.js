@@ -40,12 +40,18 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
+
   return (
   <AppContext.Provider 
   value={{
     loggedInUser,
     login,
-    loginError
+    loginError,
+    logout
   }}>
     {children}
     </AppContext.Provider>);
