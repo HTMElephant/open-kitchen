@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { concat, isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
 import { Avatar, Menu, MenuItem, Fade, Grid, AppBar, Typography, Button } from "@mui/material";
+import "./ResponsiveAppBar.css";
 
 const ResponsiveAppBar = () => {
   const { loggedInUser, logout } = useContext(AppContext);
@@ -12,6 +13,9 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/login");
+  };
+  const handleNavigate = (route) => {
+    navigate(route);
   };
 
   const handleOpen = (e) => {
@@ -28,6 +32,36 @@ const ResponsiveAppBar = () => {
   };
 
   let buttonDisplay;
+  let routes = (
+    <Grid item>
+      <Grid container>
+        <Grid item>
+          {/* My Recipes */}
+          <Typography
+            className="navBarRoute"
+            variant="h6"
+            noWrap
+            component="a"
+            onClick={() => handleNavigate("/user/recipes")}
+          >
+            My Recipes
+          </Typography>
+        </Grid>
+        <Grid item>
+          {/* My Kitchens */}
+          <Typography
+            className="navBarRoute"
+            variant="h6"
+            noWrap
+            component="a"
+            onClick={() => handleNavigate("/kitchens")}
+          >
+            My Kitchens
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
 
   const getUserInitials = (user) => {
     let firstNameLetter = user.first_name.charAt(0);
@@ -57,9 +91,10 @@ const ResponsiveAppBar = () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        padding={"10px"}
+        padding="10px"
       >
-        <Grid item xs={4}>
+        {/* Open Kitchen Logo */}
+        <Grid item>
           <Typography
             variant="h6"
             noWrap
@@ -77,6 +112,7 @@ const ResponsiveAppBar = () => {
             OpenKitchen
           </Typography>
         </Grid>
+        {!loggedInUser || isEmpty(loggedInUser) ? <></> : routes}
         <Grid item>{buttonDisplay}</Grid>
       </Grid>
       <Menu
