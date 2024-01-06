@@ -1,15 +1,13 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [loginError, setLoginError] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("user");
@@ -19,8 +17,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    try{
-
+    try {
       const response = await axios.post("/v1/login", {
         email,
         password,
@@ -28,27 +25,29 @@ export const AppProvider = ({ children }) => {
       if (response.data) {
         setLoggedInUser(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
-        setLoginError(false)
-        navigate("/")
+        setLoginError(false);
+        navigate("/");
       } else {
         console.error("Login failed.");
-        setLoginError(true)
+        setLoginError(true);
       }
     } catch (err) {
-      setLoginError(true)
-      console.error(err)
+      setLoginError(true);
+      console.error(err);
     }
   };
 
   return (
-  <AppContext.Provider 
-  value={{
-    loggedInUser,
-    login,
-    loginError
-  }}>
-    {children}
-    </AppContext.Provider>);
+    <AppContext.Provider
+      value={{
+        loggedInUser,
+        login,
+        loginError,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 export default AppContext;
