@@ -1,12 +1,8 @@
 import {useContext, useState} from "react";
-import Grid from "@mui/system/Unstable_Grid/Grid";
-import AppBar from "@mui/material/AppBar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
 import { concat, isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
-import { Avatar, Menu, MenuItem, Fade } from "@mui/material";
+import { Avatar, Menu, MenuItem, Fade, Grid, AppBar, Typography, Button } from "@mui/material";
 
 const ResponsiveAppBar = () => {
   const { loggedInUser, logout } = useContext(AppContext);
