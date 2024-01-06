@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
 import { Typography, Button, TextField, Grid, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,9 +9,12 @@ const Login = () => {
 
   const { login, loginError } = useContext(AppContext);
 
+  const navigate = useNavigate();
+
   const handleClick = () => {
     login(email, password);
   };
+
 
   return (
     <Grid
@@ -19,6 +23,7 @@ const Login = () => {
       direction="column"
       justifyContent="center"
       alignItems="center"
+      marginTop="60px !important"
     >
       <Grid item xs={6}>
         <Typography>Login</Typography>
@@ -52,6 +57,11 @@ const Login = () => {
           >
             Log In
           </Button>
+        </Link>
+      </Grid>
+      <Grid item xs={6}>
+        <Link underline="hover" style={{cursor: "pointer"}} onClick={() => navigate("/register")}>
+          {"Don't have an account? Register Here"}
         </Link>
       </Grid>
     </Grid>
