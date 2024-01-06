@@ -23,7 +23,7 @@ export const AppProvider = ({ children }) => {
         password,
       });
       if (response.data) {
-        setLoggedInUser(response.data);
+        setLoggedInUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data));
         setLoginError(false);
         navigate("/");
