@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState({});
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
 
@@ -37,17 +37,21 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setLoggedInUser({});
+    localStorage.removeItem("user");
+  };
+
   return (
-    <AppContext.Provider
-      value={{
-        loggedInUser,
-        login,
-        loginError,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
-  );
+  <AppContext.Provider 
+  value={{
+    loggedInUser,
+    login,
+    loginError,
+    logout
+  }}>
+    {children}
+    </AppContext.Provider>);
 };
 
 export default AppContext;
