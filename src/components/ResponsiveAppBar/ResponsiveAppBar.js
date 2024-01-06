@@ -1,8 +1,17 @@
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { concat, isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
-import { Avatar, Menu, MenuItem, Fade, Grid, AppBar, Typography, Button } from "@mui/material";
+import {
+  Menu,
+  MenuItem,
+  Fade,
+  Grid,
+  AppBar,
+  Typography,
+  Button,
+} from "@mui/material";
+import Gravatar from "react-gravatar";
 import "./ResponsiveAppBar.css";
 
 const ResponsiveAppBar = () => {
@@ -63,13 +72,6 @@ const ResponsiveAppBar = () => {
     </Grid>
   );
 
-  const getUserInitials = (user) => {
-    let firstNameLetter = user.first_name.charAt(0);
-    let lastNameLetter = user.last_name.charAt(0);
-    let initials = concat(firstNameLetter, lastNameLetter);
-    return initials;
-  };
-
   if (!loggedInUser || isEmpty(loggedInUser)) {
     buttonDisplay = (
       <Button
@@ -81,8 +83,9 @@ const ResponsiveAppBar = () => {
       </Button>
     );
   } else {
-    let initials = getUserInitials(loggedInUser);
-    buttonDisplay = <Avatar onClick={(e) => handleOpen(e)}>{initials}</Avatar>;
+    buttonDisplay = (
+      <Gravatar email={loggedInUser.email} onClick={(e) => handleOpen(e)} />
+    );
   }
   return (
     <AppBar sx={{ bgcolor: "gray" }}>
