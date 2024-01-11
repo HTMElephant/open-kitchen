@@ -6,6 +6,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [registerError, setRegisterError] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
 
@@ -42,13 +43,38 @@ export const AppProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
+  const register = async ({first_name, last_name, username, email, password}) => {
+    try{
+      const response = await axios.post("/v1/register", {
+        first_name,
+        last_name,
+        username,
+        email,
+        password
+      });
+      if(response.data) {
+        setLoggedInUser(response.data.user);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        navigate("/")
+      } else {
+        console.error("Register failed.")
+        setRegisterError(true)
+      }
+    } catch (err) {
+      setRegisterError(true)
+      console.error(err)
+    }
+  };
+
   return (
   <AppContext.Provider 
   value={{
     loggedInUser,
     login,
     loginError,
-    logout
+    logout,
+    register,
+    registerError
   }}>
     {children}
     </AppContext.Provider>);
