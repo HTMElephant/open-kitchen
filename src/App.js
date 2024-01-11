@@ -6,17 +6,30 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AppContext from "./context/AppContext";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import { Button, Grid, Paper, Typography } from "@mui/material";
+import OpenKitchenThemeProvider from "./themes/OpenKitchenThemeProvider";
 
 function App() {
   return (
     <div className="App">
       <ResponsiveAppBar />
-      <div style={{marginTop: "60px"}}>
+      <div style={{ marginTop: "60px" }}>
         <Routes>
           <Route path="/" />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
+        <Paper>
+          <Typography variant="h3">Hello there</Typography>
+          <Grid container spacing={3} justifyItems="flex-end" sx={{ width: '100vw' }}>
+            <Grid item>
+              <Button variant="contained">Children!</Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary">Children - again!</Button>
+            </Grid>
+          </Grid>
+        </Paper>
       </div>
     </div>
   );
@@ -25,7 +38,9 @@ function App() {
 const AppWrapper = () => {
   return (
     <AppProvider>
-      <App />
+      <OpenKitchenThemeProvider>
+        <App />
+      </OpenKitchenThemeProvider>
     </AppProvider>
   );
 };
