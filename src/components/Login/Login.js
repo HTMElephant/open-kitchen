@@ -30,7 +30,6 @@ const Login = () => {
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           onChange={(e) => setEmail(e.target.value)}
@@ -39,7 +38,6 @@ const Login = () => {
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="Password"
           variant="outlined"
           type="password"

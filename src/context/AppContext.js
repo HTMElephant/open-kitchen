@@ -8,7 +8,6 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState({});
-  const [newUser, setNewUser] = useState({});
   const [registerError, setRegisterError] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate()
@@ -57,9 +56,8 @@ export const AppProvider = ({ children }) => {
         password
       });
       if(response.data) {
-        setNewUser(response.data)
         setLoggedInUser(response.data.user);
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate("/")
       } else {
         console.error("Register failed.")

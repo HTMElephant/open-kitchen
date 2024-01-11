@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
 import { Typography, Button, TextField, Grid, Link } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 
 
@@ -29,14 +28,12 @@ function Register() {
       direction="column"
       justifyContent="center"
       alignItems="center"
-      marginTop="60px !important"
     >
       <Grid item xs={6}>
         <Typography>Register</Typography>
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="First Name"
           variant="outlined"
           onChange={(e) => setFirstName(e.target.value)}
@@ -44,7 +41,6 @@ function Register() {
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="Last Name"
           variant="outlined"
           onChange={(e) => setLastName(e.target.value)}
@@ -52,7 +48,6 @@ function Register() {
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="Username"
           variant="outlined"
           onChange={(e) => setUsername(e.target.value)}
@@ -60,7 +55,6 @@ function Register() {
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           error={registerError}
@@ -70,7 +64,6 @@ function Register() {
       </Grid>
       <Grid item xs={6}>
         <TextField
-          id="outlined-basic"
           label="Password"
           variant="outlined"
           type="password"

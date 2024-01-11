@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { AppProvider } from "./context/AppContext";
@@ -12,12 +11,13 @@ function App() {
   return (
     <div className="App">
       <ResponsiveAppBar />
-      <Routes>
-        <Route path="/" />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <p>Open Kitchen</p>
+      <div style={{marginTop: "60px"}}>
+        <Routes>
+          <Route path="/" />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
     </div>
   );
 }
