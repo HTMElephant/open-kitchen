@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AppContext from "./context/AppContext";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import Home from "./components/Home";
 import OpenKitchenThemeProvider from "./themes/OpenKitchenThemeProvider";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <ResponsiveAppBar />
       <div style={{ marginTop: "60px" }}>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
