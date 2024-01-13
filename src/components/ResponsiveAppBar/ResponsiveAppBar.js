@@ -37,7 +37,6 @@ const ResponsiveAppBar = () => {
     handleClose();
   };
 
-  console.log(loggedInUser.email);
   let buttonDisplay;
   let routes = (
     <Grid item>
