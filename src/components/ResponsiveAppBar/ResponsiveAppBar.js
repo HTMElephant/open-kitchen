@@ -20,9 +20,6 @@ const ResponsiveAppBar = () => {
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/login");
-  };
   const handleNavigate = (route) => {
     navigate(route);
   };
@@ -40,6 +37,7 @@ const ResponsiveAppBar = () => {
     handleClose();
   };
 
+  console.log(loggedInUser.email);
   let buttonDisplay;
   let routes = (
     <Grid item>
@@ -77,7 +75,7 @@ const ResponsiveAppBar = () => {
       <Button
         variant="contained"
         className="login_button"
-        onClick={() => handleClick()}
+        onClick={() => handleNavigate("/login")}
       >
         Login
       </Button>
@@ -111,6 +109,7 @@ const ResponsiveAppBar = () => {
               color: "inherit",
               textDecoration: "none",
             }}
+            onClick={() => handleNavigate("/")}
           >
             OpenKitchen
           </Typography>
