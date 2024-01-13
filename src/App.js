@@ -14,12 +14,12 @@ function App() {
   return (
     <div className="App">
       <ResponsiveAppBar />
-      <div style={{ marginTop: "60px" }}>
+      <div style={{ marginTop: "80px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path ="/recipe" element={<Recipe />} />
+          <Route path ="/recipes/:id" element={<Recipe />} />
         </Routes>
       </div>
     </div>
