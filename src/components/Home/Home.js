@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import "./Home.css";
-import RecipesDisplay from "../components/RecipesDisplay/RecipesDisplay";
+import RecipesDisplay from "../RecipesDisplay/RecipesDisplay";
 
 const Home = () => {
   const [recipeList, setRecipeList] = useState([]);
