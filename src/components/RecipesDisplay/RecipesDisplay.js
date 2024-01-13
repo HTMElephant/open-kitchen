@@ -10,7 +10,7 @@ import "./RecipesDisplay.css";
 
 const RecipesDisplay = ({ recipeList }) => {
   return (
-    <div className="RecipesDisplay">
+    <div className="recipes-display">
       <Grid
         container
         direction="row"
