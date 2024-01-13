@@ -19,17 +19,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-        <Paper>
-          <Typography variant="h3">Hello there</Typography>
-          <Grid container spacing={3} justifyItems="flex-end" sx={{ width: '100vw' }}>
-            <Grid item>
-              <Button variant="contained">Children!</Button>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" color="secondary">Children - again!</Button>
-            </Grid>
-          </Grid>
-        </Paper>
       </div>
     </div>
   );
