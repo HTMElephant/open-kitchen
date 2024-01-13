@@ -4,6 +4,7 @@ import { AppProvider } from "./context/AppContext";
 import { useContext } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Recipe from "./components/Recipe";
 import AppContext from "./context/AppContext";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import { Button, Grid, Paper, Typography } from "@mui/material";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path ="/recipe" element={<Recipe />} />
         </Routes>
       </div>
     </div>
