@@ -1,0 +1,11 @@
+.recipes-display {
+  margin: 10px;
+  height: 70vh;
+  width: 100vw;
+}
+
+.recipe-card {
+  height: 300px;
+  width: 100%;
+  margin: auto;
+}
