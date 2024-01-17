@@ -25,7 +25,7 @@ export const AppProvider = ({ children }) => {
       });
       if (response.data) {
         setLoggedInUser(response.data.user);
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         setLoginError(false);
         navigate("/");
       } else {
