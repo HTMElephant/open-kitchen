@@ -19,29 +19,22 @@ import RestaurantIcon from "@mui/icons-material/Restaurant";
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState({});
-  const [isRecipeOpen, setIsRecipeOpen] = useState();
   const { id } = useParams();
   const { loggedInUser } = useContext(AppContext);
   useEffect(() => {
-    // (recipe ? setRecipe({}) : getRecipe(id));
     const getRecipe = async (id) => {
-      console.log("ID ", id);
       const response = await axios.get(`/v1/recipes/${id}`);
-      console.log("Response ", response.data);
       setRecipe(response.data);
+      console.log(response.data);
     };
-
     getRecipe(id);
   }, [id]);
 
-  let recipe_user_id = recipe.user_id;
-  let isEditable =
-    loggedInUser && recipe_user_id === loggedInUser.id ? true : false;
-  let recipe_user = recipe.user;
+  const isEditable = loggedInUser && recipe.user_id === loggedInUser.id;
 
   return (
     <Paper>
-      <Grid container direction="row">
+      <Grid container>
         <Grid
           container
           direction="column"
@@ -56,7 +49,6 @@ const Recipe = () => {
           <Grid item>
             <Typography
               variant="h6"
-              component="a"
               sx={{
                 mr: 2,
                 fontFamily: "monospace",
@@ -71,9 +63,7 @@ const Recipe = () => {
           </Grid>
           {/* Recipe Description */}
           <Grid item>
-            <Typography variant="subtitle1" component="a">
-              {recipe.description}
-            </Typography>
+            <Typography variant="subtitle1">{recipe.description}</Typography>
           </Grid>
         </Grid>
 
@@ -106,32 +96,23 @@ const Recipe = () => {
               padding="10px"
             >
               <Grid item>
-                <Typography
-                  variant="caption text"
-                  fontWeight="550"
-                  component="a"
-                >
+                <Typography variant="caption text" fontWeight="550">
                   {`Created By: ${recipe.username}`}
                 </Typography>
               </Grid>
               <Grid item>
-              <Button>
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  padding="5px"
-                  alignItems="center"
-                >
-                  <RestaurantIcon fontSize="medium"></RestaurantIcon>
-                  <Typography
-                    variant="caption text"
-                    fontWeight="bold"
-                    component="a"
+                <Button>
+                  <Grid
+                    container
+                    justifyContent="center"
+                    padding="5px"
+                    alignItems="center"
                   >
-                    Fork This Recipe!
-                  </Typography>
-                </Grid>
+                    <RestaurantIcon fontSize="medium"></RestaurantIcon>
+                    <Typography variant="caption text" fontWeight="bold">
+                      Fork This Recipe!
+                    </Typography>
+                  </Grid>
                 </Button>
               </Grid>
             </Grid>
@@ -152,9 +133,7 @@ const Recipe = () => {
         <Paper elevation={4}>
           <Grid container direction="column" padding="10px" width="100%">
             <Grid item>
-              <Typography variant="h6" component="a">
-                Ingredients
-              </Typography>
+              <Typography variant="h6">Ingredients</Typography>
             </Grid>
             {recipe.ingredients ? (
               <TableContainer component={Paper}>
@@ -190,19 +169,14 @@ const Recipe = () => {
           </Grid>
         </Paper>
       </Grid>
-      <Grid item
-      paddingTop="10px">
-      <Paper elevation={4}>
+      <Grid item paddingTop="10px">
+        <Paper elevation={4}>
           <Grid container direction="column" padding="10px" width="100%">
             <Grid item>
-              <Typography variant="h6" component="a">
-                Directions
-              </Typography>
+              <Typography variant="h6">Directions</Typography>
             </Grid>
             <Grid item>
-            <Typography variant="subtitle1" component="a">
-              {recipe.directions}
-            </Typography>
+              <Typography variant="subtitle1">{recipe.directions}</Typography>
             </Grid>
           </Grid>
         </Paper>
