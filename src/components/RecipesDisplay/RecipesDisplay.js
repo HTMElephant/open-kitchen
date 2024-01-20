@@ -4,13 +4,55 @@ import {
   Typography,
   CardContent,
   Grid,
-  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import "./RecipesDisplay.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const RecipesDisplay = ({ recipeList }) => {
+const RecipesDisplay = ({ recipeList, refetchRecipes }) => {
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState();
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const response = await axios.get("http://localhost:4001/v1/categories");
+      setCategories(response.data);
+    };
+    getCategories();
+  }, []);
+
+  const handleChange = (e) => {
+    const newStateValue = e.target.value === "All" ? null : e.target.value;
+    setSelectedCategory(newStateValue);
+    refetchRecipes(newStateValue);
+  };
+
   return (
     <div className="recipes-display">
+      <div className="category">
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="select-label" shrink>
+            Category
+          </InputLabel>
+          <Select
+            onChange={handleChange}
+            label="Category"
+            displayEmpty
+            value={selectedCategory}
+          >
+            <MenuItem value={null}>
+              <em>All</em>
+            </MenuItem>
+            {categories.map((category) => (
+              <MenuItem value={category.id}>{category.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
       <Grid
         container
         direction="row"
