@@ -1,23 +1,24 @@
 import { Typography, Grid, Button, Paper } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AppContext from "../../context/AppContext";
 import RecipesDisplay from "../RecipesDisplay/RecipesDisplay";
+import UsersDisplay from "../UsersDisplay";
 
 const Kitchen = () => {
-  const [kitchenRecipes, setKitchenRecipes] = useState();
+  const [kitchenRecipes, setKitchenRecipes] = useState([]);
+  const { loggedinUser } = useContext(AppContext);
+
   const { id } = useParams();
 
-  const getKitchenRecipes = async (id) => {
+  const getKitchenRecipes = async () => {
     const response = await axios.get(`/v1/kitchen/${id}/recipes`);
-    const recipes = response.data;
+    const { recipes } = response.data;
     setKitchenRecipes(recipes);
   };
 
-  // invokes getKitchenREcipes only when there are no kitchenRecipes to begin with
-  !kitchenRecipes ? getKitchenRecipes(id) : <></>;
-
-  //   This useEffect will recall 'recipes' any time the 'id' changes in the routes parameters
+  //   This useEffect will call on startup and recall 'recipes' any time the 'id' changes in the routes parameters
   useEffect(() => {
     getKitchenRecipes(id);
   }, [id]);
@@ -42,32 +43,25 @@ const Kitchen = () => {
           <Grid
             container
             justifyContent="space-evenly"
-            alignContent="center"
+            alignItems="center"
             padding="10px"
           >
             {/*  1 of 2 items in CHILD container*/}
             {/* Recipe Display */}
             <Grid item>
-              {/* Put this in for the first typography 
-                <RecipesDisplay  recipeList={kitchenRecipes}/> 
-            */}
               {kitchenRecipes ? (
-                // Replace with RecipesDisplay
-                <Typography
-                  variant="h6"
-                  border="solid 3px black"
-                >{`<RecipeDisplay recipeList={kitchenRecipes} />`}</Typography>
+                <RecipesDisplay recipeList={kitchenRecipes} />
               ) : (
                 <Typography variant="h6">Fetching Recipes!</Typography>
               )}
             </Grid>
             {/*  2 of 2 items in CHILD container*/}
+            {/* UsersDisplay */}
             <Grid item>
-              {/* UsersDisplay Component needs to be created and put here */}
-              <Typography
-                variant="h6"
-                border="solid 3px black"
-              >{`<UserDisplay />`}</Typography>
+              <Paper>
+              <UsersDisplay kitchenId={id}/>
+                {/* <UsersDisplay loggedInUser={(!loggedinUser ? loggedinUser : null)} /> */}
+              </Paper>
             </Grid>
           </Grid>
         </Paper>
