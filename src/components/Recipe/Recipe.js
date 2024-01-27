@@ -3,7 +3,6 @@ import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AppContext from "../../context/AppContext";
 import {
-  Box,
   Button,
   Grid,
   Typography,
