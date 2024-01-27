@@ -25,7 +25,8 @@ const Kitchen = () => {
 
   return (
     // This container will hold the Welcome header, the recipe list, the users in the kitchen, and the add recipe button;
-    <Grid container direction="column">
+    <Grid container direction="column"
+    justifyContent="space-around">
       {/* 1 of 3 items in PARENT container */}
       {/* Kitchen Header */}
       <Grid item>
@@ -44,11 +45,10 @@ const Kitchen = () => {
             container
             justifyContent="space-evenly"
             alignItems="center"
-            padding="10px"
           >
             {/*  1 of 2 items in CHILD container*/}
             {/* Recipe Display */}
-            <Grid item>
+            <Grid item width="80%">
               {kitchenRecipes ? (
                 <RecipesDisplay recipeList={kitchenRecipes} />
               ) : (
@@ -57,7 +57,7 @@ const Kitchen = () => {
             </Grid>
             {/*  2 of 2 items in CHILD container*/}
             {/* UsersDisplay */}
-            <Grid item>
+            <Grid item width="20%">
               <Paper>
               <UsersDisplay kitchenId={id}/>
                 {/* <UsersDisplay loggedInUser={(!loggedinUser ? loggedinUser : null)} /> */}
