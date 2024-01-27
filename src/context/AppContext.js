@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const AppContext = createContext();
 
@@ -14,8 +15,9 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const cachedUser = localStorage.getItem("user");
     if (cachedUser) {
+      const token = Cookies.get("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setLoggedInUser(JSON.parse(cachedUser));
-      console.log(cachedUser)
     }
   }, []);
 
@@ -26,8 +28,12 @@ export const AppProvider = ({ children }) => {
         password,
       });
       if (response.data) {
+        Cookies.set("token", response.data.token);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.token}`;
         setLoggedInUser(response.data.user);
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         setLoginError(false);
         navigate("/");
       } else {
@@ -45,41 +51,53 @@ export const AppProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
-  const register = async ({first_name, last_name, username, email, password}) => {
-    try{
+  const register = async ({
+    first_name,
+    last_name,
+    username,
+    email,
+    password,
+  }) => {
+    try {
       const response = await axios.post("/v1/register", {
         first_name,
         last_name,
         username,
         email,
-        password
+        password,
       });
-      if(response.data) {
+      if (response.data) {
+        Cookies.set("token", response.data.token);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.token}`;
         setLoggedInUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/")
+        navigate("/");
       } else {
-        console.error("Register failed.")
-        setRegisterError(true)
+        console.error("Register failed.");
+        setRegisterError(true);
       }
     } catch (err) {
-      setRegisterError(true)
-      console.error(err)
+      setRegisterError(true);
+      console.error(err);
     }
   };
 
   return (
-  <AppContext.Provider 
-  value={{
-    loggedInUser,
-    login,
-    loginError,
-    logout,
-    register,
-    registerError
-  }}>
-    {children}
-    </AppContext.Provider>);
+    <AppContext.Provider
+      value={{
+        loggedInUser,
+        login,
+        loginError,
+        logout,
+        register,
+        registerError,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 export default AppContext;
