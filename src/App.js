@@ -4,6 +4,7 @@ import { AppProvider } from "./context/AppContext";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Recipe from "./components/Recipe";
+import Kitchens from "./components/Kitchens";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Home from "./components/Home";
 import OpenKitchenThemeProvider from "./themes/OpenKitchenThemeProvider";
@@ -18,9 +19,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path ="/recipes/:id" element={<Recipe />} />
-          <Route path ="/kitchens/:id/recipes" element={<Kitchen />} />
-
+          <Route path="/recipes/:id" element={<Recipe />} />
+          <Route path="/kitchens" element={<Kitchens />} />
+          <Route path="/kitchens/:id/recipes" element={<Kitchen />} />
         </Routes>
       </div>
     </div>
