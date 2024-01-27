@@ -1,4 +1,5 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { isEmpty } from "lodash";
@@ -51,15 +52,10 @@ const UsersDisplay = ({ kitchenId }) => {
                             {user.profile_img ? (
                               <img
                                 src={`${user.profile_img}`}
-                                alt="user's profile image"
+                                alt="user's profile"
                               />
                             ) : (
-                              <img
-                                src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"
-                                alt="default-profile-image"
-                                height="25px"
-                                width="25px"
-                              />
+                              <AccountCircleIcon fontSize="small"/>
                             )}
                           </Typography>
                         </Grid>
