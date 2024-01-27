@@ -42,13 +42,13 @@ const Kitchen = () => {
           <Grid
             container
             justifyContent="space-evenly"
-            alignItems="center"
+            alignItems="flex-start"
           >
             {/*  1 of 2 items in CHILD container*/}
             {/* Recipe Display */}
-            <Grid item xs={9}>
+            <Grid item xs={9} overflow="scroll">
               {kitchenRecipes ? (
-                <RecipesDisplay recipeList={kitchenRecipes} />
+                <RecipesDisplay recipeList={[...kitchenRecipes, ...kitchenRecipes, ...kitchenRecipes, ...kitchenRecipes]} />
               ) : (
                 <Typography variant="h6">Fetching Recipes!</Typography>
               )}
