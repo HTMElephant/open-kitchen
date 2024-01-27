@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
+import Modal from "../Modal";
 import {
   Menu,
   MenuItem,
@@ -10,13 +11,31 @@ import {
   AppBar,
   Typography,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  DialogActions,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Select,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Gravatar from "react-gravatar";
 import "./ResponsiveAppBar.css";
 
 const ResponsiveAppBar = () => {
-  const { loggedInUser, logout } = useContext(AppContext);
+  const { loggedInUser, logout, kitchenUsers } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [role, setRole] = useState("");
+  const [newkitchenUsers, setNewKitchenUsers] = useState([]);
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
@@ -32,10 +51,37 @@ const ResponsiveAppBar = () => {
     setAnchorEl(null);
   };
 
+  const addNewUser = (user) => {
+    setNewKitchenUsers([...newkitchenUsers, user]);
+  };
+
+  const removeUser = (user) => {
+    const newUserList = [...newkitchenUsers]
+    console.log(kitchenUsers)
+    const indexToRemove = newUserList.findIndex((user) => user.id === kitchenUsers.id)
+    newUserList.splice(indexToRemove, 1)
+    setNewKitchenUsers(newUserList) 
+  }
+
+  const handleChange = (e) => {
+    setRole(e.target.value);
+    console.log(role);
+  };
+
   const handleLogout = () => {
     logout();
     handleClose();
   };
+
+  const closeModal = () => {
+    setIsCreateModalOpen(false);
+  };
+
+  const openModal = () => {
+    setIsCreateModalOpen(true);
+  };
+
+  console.log(loggedInUser)
 
   let buttonDisplay;
   let routes = (
@@ -82,6 +128,7 @@ const ResponsiveAppBar = () => {
   } else {
     buttonDisplay = (
       <Gravatar email={loggedInUser.email} onClick={(e) => handleOpen(e)} />
+      
     );
   }
   return (
@@ -131,9 +178,57 @@ const ResponsiveAppBar = () => {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleClose}>Create Recipe</MenuItem>
-        <MenuItem onClick={handleClose}>Create Kitchen</MenuItem>
+        <MenuItem onClick={openModal}>Create Kitchen</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
+
+      <Modal open={isCreateModalOpen} close={closeModal}>
+        <DialogTitle align="center">Create Kitchen</DialogTitle>
+        <DialogContent>
+          <TextField label="Kitchen Name" variant="outlined"></TextField>
+          <Typography sx={{ marginTop: 3 }} variant="h6" align="center">
+            Users
+          </Typography>
+          <Table>
+
+            <TableHead>
+
+              {newkitchenUsers.map((kitchenUser) => (
+                <TableRow>
+                  <TableCell>
+                    <TextField label="user email"></TextField>
+                  </TableCell>
+
+                  <TableCell>
+                    <FormControl>
+                      <InputLabel>Role</InputLabel>
+                      <Select
+                        sx={{ width: "15ch" }}
+                        label="Role"
+                        value={role}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={"Chef"}>Chef</MenuItem>
+                        <MenuItem value={"View Only"}>View Only</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+
+                  <TableCell>
+                    <Button onClick={removeUser}>Delete</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+            </TableHead>
+          </Table>
+          <Button onClick={addNewUser}>Add User</Button>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeModal}>Cancel</Button>
+          <Button>Save Kitchen</Button>
+        </DialogActions>
+      </Modal>
     </AppBar>
   );
 };

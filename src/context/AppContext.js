@@ -8,12 +8,14 @@ export const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [registerError, setRegisterError] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [kitchenUsers, setKitchenUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("user");
     if (cachedUser) {
       setLoggedInUser(JSON.parse(cachedUser));
+      console.log(cachedUser)
     }
   }, []);
 
