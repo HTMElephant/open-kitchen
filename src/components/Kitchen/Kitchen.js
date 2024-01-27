@@ -55,7 +55,7 @@ const Kitchen = () => {
             </Grid>
             {/*  2 of 2 items in CHILD container*/}
             {/* UsersDisplay */}
-            <Grid item width="20%">
+            <Grid item xs={3}>
               <Paper>
                 <UsersDisplay kitchenId={id}/>
               </Paper>
