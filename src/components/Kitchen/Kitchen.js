@@ -8,7 +8,6 @@ import UsersDisplay from "../UsersDisplay";
 
 const Kitchen = () => {
   const [kitchenRecipes, setKitchenRecipes] = useState([]);
-  const { loggedinUser } = useContext(AppContext);
 
   const { id } = useParams();
 
@@ -59,8 +58,7 @@ const Kitchen = () => {
             {/* UsersDisplay */}
             <Grid item width="20%">
               <Paper>
-              <UsersDisplay kitchenId={id}/>
-                {/* <UsersDisplay loggedInUser={(!loggedinUser ? loggedinUser : null)} /> */}
+                <UsersDisplay kitchenId={id}/>
               </Paper>
             </Grid>
           </Grid>

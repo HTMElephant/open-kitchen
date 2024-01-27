@@ -2,14 +2,19 @@ import { Grid, Paper, Typography, Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { isEmpty } from "lodash";
+import { useContext } from "react";
+import AppContext from "../../context/AppContext";
 
 const UsersDisplay = ({ kitchenId }) => {
   const [users, setUsers] = useState([]);
+  const { loggedInUser } = useContext(AppContext);
   const fetchUserList = async () => {
     const usersList = await axios.get(`/v1/kitchen/${kitchenId}/users`);
     setUsers(usersList.data);
-    console.log(usersList.data)
   };
+
+  const matchingUser = users.find((user) => user.id === loggedInUser.id);
+
   // Fetches users on intial startup.
   useEffect(() => {
     fetchUserList();
@@ -77,7 +82,11 @@ const UsersDisplay = ({ kitchenId }) => {
           {/* 3 of 3 items PARENT container */}
           {/* Button conditionally rendered based on user's 'role' */}
           <Grid item>
-            <Button variant="contained">Edit</Button>
+            {matchingUser?.role === "Super Admin" ? (
+              <Button variant="contained">Edit</Button>
+            ) : (
+            <></>
+            )}
           </Grid>
         </Grid>
       </Grid>
