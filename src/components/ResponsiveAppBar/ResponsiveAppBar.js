@@ -57,13 +57,14 @@ const ResponsiveAppBar = () => {
   };
 
   const saveKitchen = async () => {
-    const { data: kitchen } = await axios.post(
+    await axios.post(
       `http://localhost:4001/v1/kitchen`,
       {
         name: kitchenName,
-        kitchenUsers: newKitchenUsers,
+        kitchenUsers: [...newKitchenUsers, {email: loggedInUser.email, role: "Super Admin"}],
       }
     );
+
     closeModal()
     setKitchenName("")
     setNewKitchenUsers([])
