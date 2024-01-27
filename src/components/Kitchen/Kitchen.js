@@ -16,8 +16,7 @@ const Kitchen = () => {
     const { recipes } = response.data;
     setKitchenRecipes(recipes);
   };
-
-  //   This useEffect will call on startup and recall 'recipes' any time the 'id' changes in the routes parameters
+  //   This useEffect will recall 'recipes' any time the 'id' changes in the routes parameters
   useEffect(() => {
     getKitchenRecipes(id);
   }, [id]);
