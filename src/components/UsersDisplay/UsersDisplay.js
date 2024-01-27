@@ -22,7 +22,7 @@ const UsersDisplay = ({ kitchenId }) => {
   }, []);
   return (
     // One Parent Element
-    <Grid width="100%">
+    <Grid container>
       {/* Making the container to hold User information and header */}
       <Grid item>
         <Grid container direction={"column"} padding="10px">
