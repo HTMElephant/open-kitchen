@@ -14,9 +14,6 @@ const Kitchen = () => {
     setKitchenRecipes(recipes);
   };
 
-  // invokes getKitchenREcipes only when there are no kitchenRecipes to begin with
-  !kitchenRecipes ? getKitchenRecipes(id) : <></>;
-
   //   This useEffect will recall 'recipes' any time the 'id' changes in the routes parameters
   useEffect(() => {
     getKitchenRecipes(id);
