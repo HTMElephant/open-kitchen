@@ -46,7 +46,7 @@ const Kitchen = () => {
           >
             {/*  1 of 2 items in CHILD container*/}
             {/* Recipe Display */}
-            <Grid item width="80%">
+            <Grid item xs={9}>
               {kitchenRecipes ? (
                 <RecipesDisplay recipeList={kitchenRecipes} />
               ) : (
