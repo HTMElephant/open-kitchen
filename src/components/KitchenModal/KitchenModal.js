@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "../Modal";
 import UserTableRow from "../UserTableRow";
+import Dialog from '@mui/material/Dialog';
 import {
   DialogTitle,
   DialogContent,
@@ -16,18 +16,18 @@ const KitchenModal = ({
   newKitchenUsers,
   setNewKitchenUsers,
   addNewUser,
-  closeModal,
-  open,
   KitchenName,
   setKitchenName,
   saveKitchen,
+  open, 
+  close
 }) => {
   const handleChange = (event) => {
     setKitchenName(event.target.value);
   };
 
   return (
-    <Modal open={open} close={closeModal}>
+    <Dialog open={open} onClose={close}>
       <DialogTitle align="center">Create Kitchen</DialogTitle>
       <DialogContent>
         <TextField
@@ -55,10 +55,10 @@ const KitchenModal = ({
         <Button onClick={addNewUser}>Add User</Button>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeModal}>Cancel</Button>
+        <Button onClick={close}>Cancel</Button>
         <Button onClick={saveKitchen}>Save Kitchen</Button>
       </DialogActions>
-    </Modal>
+    </Dialog>
   );
 };
 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
 import KitchenModal from "../KitchenModal";
+import RecipeModal from "../RecipeModal";
 import axios from "axios";
 import {
   Menu,
@@ -19,9 +20,9 @@ import "./ResponsiveAppBar.css";
 const ResponsiveAppBar = () => {
   const { loggedInUser, logout, kitchenUsers } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [kitchenName, setKitchenName] = useState();
-  const [newKitchenUsers, setNewKitchenUsers] = useState([]);
+  const [isCreateKitchenModalOpen, setIsCreateKitchenModalOpen] = useState(false);
+  const [isCreateRecipeModalOpen, setisCreateRecipeModalOpen] = useState();
+  const [recipeName, setRecipeName] = useState('');
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
@@ -163,13 +164,13 @@ const ResponsiveAppBar = () => {
         }}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Create Recipe</MenuItem>
+        <MenuItem onClick={openModal}>Create Recipe</MenuItem>
         <MenuItem onClick={openModal}>Create Kitchen</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       <KitchenModal
-        open={isCreateModalOpen}
+        open={isCreateKitchenModalOpen}
         close={closeModal}
         newKitchenUsers={newKitchenUsers}
         setNewKitchenUsers={setNewKitchenUsers}
@@ -177,6 +178,11 @@ const ResponsiveAppBar = () => {
         KitchenName={kitchenName}
         setKitchenName={setKitchenName}
         saveKitchen={saveKitchen}
+      />
+
+      <RecipeModal 
+        open={isCreateRecipeModalOpen}
+        
       />
     </AppBar>
   );
