@@ -5,6 +5,7 @@ import {
   DialogTitle,
   TextField,
   Button,
+  Dialog
 } from "@mui/material";
 
 const RecipeModal = ({ recipeName, setRecipeName, open, closeModal }) => {

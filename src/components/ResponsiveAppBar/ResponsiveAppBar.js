@@ -22,7 +22,9 @@ const ResponsiveAppBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isCreateKitchenModalOpen, setIsCreateKitchenModalOpen] = useState(false);
   const [isCreateRecipeModalOpen, setisCreateRecipeModalOpen] = useState();
+  const [newKitchenUsers, setNewKitchenUsers] = useState([{}]);
   const [recipeName, setRecipeName] = useState('');
+  const [kitchenName, setKitchenName] = useState('');
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
@@ -44,17 +46,11 @@ const ResponsiveAppBar = () => {
   };
 
   const closeModal = () => {
-    setIsCreateModalOpen(false);
+    setIsCreateKitchenModalOpen(false);
   };
 
   const openModal = () => {
-    setIsCreateModalOpen(true);
-  };
-
-  const addNewUser = () => {
-    setNewKitchenUsers((previousKitchenUsers) => {
-      return [...previousKitchenUsers, { email: "", role: "View-Only" }];
-    });
+    setIsCreateKitchenModalOpen(true);
   };
 
   const saveKitchen = async () => {

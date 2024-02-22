@@ -93,6 +93,7 @@ export const AppProvider = ({ children }) => {
         logout,
         register,
         registerError,
+        kitchenUsers,
       }}
     >
       {children}

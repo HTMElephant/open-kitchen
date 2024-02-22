@@ -13,17 +13,21 @@ import {
 } from "@mui/material";
 
 const KitchenModal = ({
-  newKitchenUsers,
-  setNewKitchenUsers,
-  addNewUser,
   KitchenName,
-  setKitchenName,
+  KitchenUsers,
+  addNewUser,
   saveKitchen,
   open, 
   close
 }) => {
   const handleChange = (event) => {
     setKitchenName(event.target.value);
+  };
+
+  const addNewUser = () => {
+    setNewKitchenUsers((previousKitchenUsers) => {
+      return [...previousKitchenUsers, { email: "", role: "View-Only" }];
+    });
   };
 
   return (
