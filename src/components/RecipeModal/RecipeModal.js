@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useMemo } from "react";
 import axios from "axios";
 import AppContext from "../../context/AppContext";
 import {
@@ -16,19 +16,42 @@ import {
 import IngredientTableRow from "../IngredientTableRow/IngredientTableRow";
 
 const RecipeModal = ({ open, close }) => {
+  const { loggedInUser } = useContext(AppContext);
   const [recipeName, setRecipeName] = useState();
   const [recipeImageUrl, setRecipeImageUrl] = useState();
   const [recipeDescription, setRecipeDescription] = useState();
   const [recipeDirections, setDirections] = useState();
-  const [newIngredients, setNewIngredients] = useState([{}]);
+  const [newIngredients, setNewIngredients] = useState([{ name: "", unit: "", measurement: "" }]);
+
+  const isFormValid = useMemo(() => {
+    return (
+      recipeName !== undefined &&
+      recipeImageUrl !== undefined &&
+      recipeDescription !== undefined &&
+      recipeDirections !== undefined && (
+      newIngredients.every(ingredient => 
+        Object.values(ingredient).every(value => value !== '') 
+        )
+      )
+    );
+  }, [
+    recipeName,
+    recipeImageUrl,
+    recipeDescription,
+    recipeDirections,
+    newIngredients,
+  ]);
 
   const saveRecipe = async () => {
+    console.log(recipeDirections);
     await axios.post(`http://localhost:4001/v1/recipes`, {
       title: recipeName,
-      ingredients: [...newIngredients],
-      image_url: recipeImageUrl,
-      directions: recipeDirections,
+      ingredients: newIngredients,
       description: recipeDescription,
+      directions: recipeDirections,
+      image_url: recipeImageUrl,
+      user_id: loggedInUser.id,
+      original_recipe_id: null,
       is_private: false,
       category_id: 1,
     });
@@ -60,13 +83,18 @@ const RecipeModal = ({ open, close }) => {
     setDirections(event.target.value);
   };
 
+  const handleClose = () => {
+    setRecipeName();
+    setRecipeImageUrl();
+    setRecipeDescription();
+    setDirections();
+    setNewIngredients([{}]);
+    close();
+  };
+
   return (
     <Dialog open={open} onClose={close}>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-      >
+      <Grid container justifyContent="center" alignItems="center">
         <Grid item>
           <DialogTitle align="center">Create Recipe</DialogTitle>
         </Grid>
@@ -138,8 +166,10 @@ const RecipeModal = ({ open, close }) => {
         </Grid>
         <Grid item>
           <DialogActions>
-            <Button onClick={close}>Cancel</Button>
-            <Button onClick={saveRecipe}>Save Recipe</Button>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button disabled={!isFormValid} onClick={saveRecipe}>
+              Save Recipe
+            </Button>
           </DialogActions>
         </Grid>
       </Grid>
