@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
+import KitchenModal from "../KitchenModal";
 import {
   Menu,
   MenuItem,
@@ -16,7 +17,9 @@ import "./ResponsiveAppBar.css";
 
 const ResponsiveAppBar = () => {
   const { loggedInUser, logout } = useContext(AppContext);
+  const [isCreateKitchenModalOpen, setIsCreateKitchenModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
@@ -36,6 +39,15 @@ const ResponsiveAppBar = () => {
     logout();
     handleClose();
   };
+
+  const openKitchenModal = () => {
+    setIsCreateKitchenModalOpen(true);
+  };
+
+  const closeKitchenModal = () => {
+    setIsCreateKitchenModalOpen(false);
+  };
+
 
   let buttonDisplay;
   let routes = (
@@ -130,10 +142,15 @@ const ResponsiveAppBar = () => {
         }}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Create Recipe</MenuItem>
-        <MenuItem onClick={handleClose}>Create Kitchen</MenuItem>
+        <MenuItem >Create Recipe</MenuItem>
+        <MenuItem onClick={openKitchenModal}>Create Kitchen</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
+
+      <KitchenModal
+        open={isCreateKitchenModalOpen}
+        close={closeKitchenModal}
+      />
     </AppBar>
   );
 };

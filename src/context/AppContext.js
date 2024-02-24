@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [registerError, setRegisterError] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [kitchenUsers, setKitchenUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -92,6 +93,7 @@ export const AppProvider = ({ children }) => {
         logout,
         register,
         registerError,
+        kitchenUsers,
       }}
     >
       {children}
