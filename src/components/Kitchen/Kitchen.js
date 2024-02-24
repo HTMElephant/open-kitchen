@@ -1,8 +1,7 @@
 import { Typography, Grid, Button, Paper } from "@mui/material";
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import api from "../../services/API";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AppContext from "../../context/AppContext";
 import RecipesDisplay from "../RecipesDisplay/RecipesDisplay";
 import UsersDisplay from "../UsersDisplay";
 
@@ -12,7 +11,7 @@ const Kitchen = () => {
   const { id } = useParams();
 
   const getKitchenRecipes = async () => {
-    const response = await axios.get(`/v1/kitchen/${id}/recipes`);
+    const response = await api.get(`/v1/kitchen/${id}/recipes`);
     const { recipes } = response.data;
     setKitchenRecipes(recipes);
   };

@@ -2,7 +2,7 @@ import { Card, Typography, CardContent, Grid, Button } from "@mui/material";
 import SoupKitchenOutlinedIcon from "@mui/icons-material/SoupKitchenOutlined";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/API";
 import AppContext from "../../context/AppContext";
 
 const Kitchens = () => {
@@ -19,8 +19,8 @@ const Kitchens = () => {
   useEffect(() => {
     const getKitchens = async () => {
       if (loggedInUser.id) {
-        const response = await axios.get(
-          `http://localhost:4001/v1/users/${loggedInUser.id}/kitchens`
+        const response = await api.get(
+          `/v1/users/${loggedInUser.id}/kitchens`
         );
         setUsersKitchens(response.data);
       }

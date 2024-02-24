@@ -1,6 +1,6 @@
 import { useContext, useState, useMemo } from "react";
 import UserTableRow from "../UserTableRow";
-import axios from "axios";
+import api from "../../services/API";
 import AppContext from "../../context/AppContext";
 import {
   Dialog,
@@ -40,7 +40,7 @@ const KitchenModal = ({ open, close }) => {
   };
 
   const saveKitchen = async () => {
-    await axios.post(`http://localhost:4001/v1/kitchen`, {
+    await api.post(`/v1/kitchen`, {
       name: kitchenName,
       kitchenUsers: [
         ...newKitchenUsers,

@@ -1,5 +1,5 @@
 import { useState, useContext, useMemo } from "react";
-import axios from "axios";
+import api from "../../services/API";
 import AppContext from "../../context/AppContext";
 import {
   Dialog,
@@ -43,7 +43,7 @@ const RecipeModal = ({ open, close }) => {
   ]);
 
   const saveRecipe = async () => {
-    await axios.post(`http://localhost:4001/v1/recipes`, {
+    await api.post(`/v1/recipes`, {
       title: recipeName,
       ingredients: newIngredients,
       description: recipeDescription,

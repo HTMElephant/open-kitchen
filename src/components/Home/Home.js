@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/API";
 import "./Home.css";
 import RecipesDisplay from "../RecipesDisplay/RecipesDisplay";
 
@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     const getRecipes = async () => {
-      const response = await axios.get("http://localhost:4001/v1/recipes");
+      const response = await api.get("/v1/recipes");
       setRecipeList(response.data);
     };
     getRecipes();
@@ -16,7 +16,7 @@ const Home = () => {
 
   const refetchRecipes = (categoryId) => {
     const getRecipes = async () => {
-      const response = await axios.get("http://localhost:4001/v1/recipes", {
+      const response = await api.get("/v1/recipes", {
         params: {
           category_id: categoryId,
         },
