@@ -43,7 +43,6 @@ const RecipeModal = ({ open, close }) => {
   ]);
 
   const saveRecipe = async () => {
-    console.log(recipeDirections);
     await axios.post(`http://localhost:4001/v1/recipes`, {
       title: recipeName,
       ingredients: newIngredients,
