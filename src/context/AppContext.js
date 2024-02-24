@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "../services/API";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -16,22 +16,20 @@ export const AppProvider = ({ children }) => {
     const cachedUser = localStorage.getItem("user");
     if (cachedUser) {
       const token = Cookies.get("token");
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.setHeaders(token);
       setLoggedInUser(JSON.parse(cachedUser));
     }
   }, []);
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("/v1/login", {
+      const response = await api.post("/v1/login", {
         email,
         password,
       });
       if (response.data) {
         Cookies.set("token", response.data.token);
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${response.data.token}`;
+        api.setHeaders(response.data.token);
         setLoggedInUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         setLoginError(false);
@@ -59,7 +57,7 @@ export const AppProvider = ({ children }) => {
     password,
   }) => {
     try {
-      const response = await axios.post("/v1/register", {
+      const response = await api.post("/v1/register", {
         first_name,
         last_name,
         username,
@@ -68,9 +66,7 @@ export const AppProvider = ({ children }) => {
       });
       if (response.data) {
         Cookies.set("token", response.data.token);
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${response.data.token}`;
+        api.setHeaders(response.data.token);
         setLoggedInUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate("/");

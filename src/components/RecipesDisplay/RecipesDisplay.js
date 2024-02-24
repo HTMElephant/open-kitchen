@@ -14,7 +14,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import "./RecipesDisplay.css";
 import { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import api from "../../services/API";
 import AppContext from "../../context/AppContext";
 
 const RecipesDisplay = ({ recipeList, refetchRecipes }) => {
@@ -25,7 +25,7 @@ const RecipesDisplay = ({ recipeList, refetchRecipes }) => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const response = await axios.get("http://localhost:4001/v1/categories");
+      const response = await api.get("/v1/categories");
       setCategories(response.data);
     };
     getCategories();
@@ -38,8 +38,8 @@ const RecipesDisplay = ({ recipeList, refetchRecipes }) => {
   };
 
   const handleFavorite = async (recipeId) => {
-    await axios.post(
-      `http://localhost:4001/v1/users/${loggedInUser.id}/recipes/${recipeId}/favorites`
+    await api.post(
+      `/v1/users/${loggedInUser.id}/recipes/${recipeId}/favorites`
     );
   };
 

@@ -1,6 +1,6 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import axios from "axios";
+import api from "../../services/API";
 import { useEffect, useState } from "react";
 import { isEmpty } from "lodash";
 import { useContext } from "react";
@@ -10,7 +10,7 @@ const UsersDisplay = ({ kitchenId }) => {
   const [users, setUsers] = useState([]);
   const { loggedInUser } = useContext(AppContext);
   const fetchUserList = async () => {
-    const usersList = await axios.get(`/v1/kitchen/${kitchenId}/users`);
+    const usersList = await api.get(`/v1/kitchen/${kitchenId}/users`);
     setUsers(usersList.data);
   };
 

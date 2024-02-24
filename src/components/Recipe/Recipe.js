@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../services/API";
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AppContext from "../../context/AppContext";
@@ -22,7 +22,7 @@ const Recipe = () => {
   const { loggedInUser } = useContext(AppContext);
   useEffect(() => {
     const getRecipe = async (id) => {
-      const response = await axios.get(`/v1/recipes/${id}`);
+      const response = await api.get(`/v1/recipes/${id}`);
       setRecipe(response.data);
       console.log(response.data);
     };
