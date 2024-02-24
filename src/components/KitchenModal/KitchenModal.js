@@ -1,6 +1,8 @@
-import React from "react";
+import { useContext, useState } from "react";
 import UserTableRow from "../UserTableRow";
-import Dialog from '@mui/material/Dialog';
+import Dialog from "@mui/material/Dialog";
+import axios from "axios";
+import AppContext from "../../context/AppContext";
 import {
   DialogTitle,
   DialogContent,
@@ -12,14 +14,11 @@ import {
   Button,
 } from "@mui/material";
 
-const KitchenModal = ({
-  KitchenName,
-  KitchenUsers,
-  addNewUser,
-  saveKitchen,
-  open, 
-  close
-}) => {
+const KitchenModal = ({ open, close }) => {
+  const { loggedInUser } = useContext(AppContext);
+  const [kitchenName, setKitchenName] = useState();
+  const [newKitchenUsers, setNewKitchenUsers] = useState([]);
+
   const handleChange = (event) => {
     setKitchenName(event.target.value);
   };
@@ -30,6 +29,20 @@ const KitchenModal = ({
     });
   };
 
+  const saveKitchen = async () => {
+    await axios.post(`http://localhost:4001/v1/kitchen`, {
+      name: kitchenName,
+      kitchenUsers: [
+        ...newKitchenUsers,
+        { email: loggedInUser.email, role: "Super Admin" },
+      ],
+    });
+
+    close();
+    setKitchenName("");
+    setNewKitchenUsers([]);
+  };
+
   return (
     <Dialog open={open} onClose={close}>
       <DialogTitle align="center">Create Kitchen</DialogTitle>
@@ -38,7 +51,7 @@ const KitchenModal = ({
           onChange={handleChange}
           label="Kitchen Name"
           variant="outlined"
-          value={KitchenName}
+          value={kitchenName}
         ></TextField>
         <Typography sx={{ marginTop: 3 }} variant="h6" align="center">
           Users

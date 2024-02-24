@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 import { isEmpty } from "lodash";
 import AppContext from "../../context/AppContext";
 import KitchenModal from "../KitchenModal";
-import RecipeModal from "../RecipeModal";
-import axios from "axios";
 import {
   Menu,
   MenuItem,
@@ -18,13 +16,10 @@ import Gravatar from "react-gravatar";
 import "./ResponsiveAppBar.css";
 
 const ResponsiveAppBar = () => {
-  const { loggedInUser, logout, kitchenUsers } = useContext(AppContext);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const { loggedInUser, logout } = useContext(AppContext);
   const [isCreateKitchenModalOpen, setIsCreateKitchenModalOpen] = useState(false);
-  const [isCreateRecipeModalOpen, setisCreateRecipeModalOpen] = useState();
-  const [newKitchenUsers, setNewKitchenUsers] = useState([{}]);
-  const [recipeName, setRecipeName] = useState('');
-  const [kitchenName, setKitchenName] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
@@ -45,27 +40,14 @@ const ResponsiveAppBar = () => {
     handleClose();
   };
 
-  const closeModal = () => {
-    setIsCreateKitchenModalOpen(false);
-  };
-
-  const openModal = () => {
+  const openKitchenModal = () => {
     setIsCreateKitchenModalOpen(true);
   };
 
-  const saveKitchen = async () => {
-    await axios.post(
-      `http://localhost:4001/v1/kitchen`,
-      {
-        name: kitchenName,
-        kitchenUsers: [...newKitchenUsers, {email: loggedInUser.email, role: "Super Admin"}],
-      }
-    );
-
-    closeModal()
-    setKitchenName("")
-    setNewKitchenUsers([])
+  const closeKitchenModal = () => {
+    setIsCreateKitchenModalOpen(false);
   };
+
 
   let buttonDisplay;
   let routes = (
@@ -160,25 +142,14 @@ const ResponsiveAppBar = () => {
         }}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={openModal}>Create Recipe</MenuItem>
-        <MenuItem onClick={openModal}>Create Kitchen</MenuItem>
+        <MenuItem >Create Recipe</MenuItem>
+        <MenuItem onClick={openKitchenModal}>Create Kitchen</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       <KitchenModal
         open={isCreateKitchenModalOpen}
-        close={closeModal}
-        newKitchenUsers={newKitchenUsers}
-        setNewKitchenUsers={setNewKitchenUsers}
-        addNewUser={addNewUser}
-        KitchenName={kitchenName}
-        setKitchenName={setKitchenName}
-        saveKitchen={saveKitchen}
-      />
-
-      <RecipeModal 
-        open={isCreateRecipeModalOpen}
-        
+        close={closeKitchenModal}
       />
     </AppBar>
   );
