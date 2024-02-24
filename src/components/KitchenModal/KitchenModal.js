@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import UserTableRow from "../UserTableRow";
-import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import AppContext from "../../context/AppContext";
 import {
+  Dialog,
   DialogTitle,
   DialogContent,
   TextField,
@@ -18,6 +18,16 @@ const KitchenModal = ({ open, close }) => {
   const { loggedInUser } = useContext(AppContext);
   const [kitchenName, setKitchenName] = useState();
   const [newKitchenUsers, setNewKitchenUsers] = useState([]);
+
+  const isFormValid = useMemo(() => {
+    return (
+      kitchenName !== undefined &&
+      newKitchenUsers.every((user) => user.email !== "")
+    );
+  }, [
+    kitchenName,
+    newKitchenUsers
+  ]);
 
   const handleChange = (event) => {
     setKitchenName(event.target.value);
@@ -41,6 +51,12 @@ const KitchenModal = ({ open, close }) => {
     close();
     setKitchenName("");
     setNewKitchenUsers([]);
+  };
+
+  const handleClose = () => {
+    setKitchenName()
+    setNewKitchenUsers([])
+    close();
   };
 
   return (
@@ -72,8 +88,8 @@ const KitchenModal = ({ open, close }) => {
         <Button onClick={addNewUser}>Add User</Button>
       </DialogContent>
       <DialogActions>
-        <Button onClick={close}>Cancel</Button>
-        <Button onClick={saveKitchen}>Save Kitchen</Button>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button disabled={!isFormValid} onClick={saveKitchen}>Save Kitchen</Button>
       </DialogActions>
     </Dialog>
   );
