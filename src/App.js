@@ -9,6 +9,7 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Home from "./components/Home";
 import OpenKitchenThemeProvider from "./themes/OpenKitchenThemeProvider";
 import Kitchen from "./components/Kitchen";
+import './firebaseConfig';
 
 function App() {
   return (
