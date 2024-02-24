@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import UserTableRow from "../UserTableRow";
-import Dialog from "@mui/material/Dialog";
 import axios from "axios";
 import AppContext from "../../context/AppContext";
 import {
+  Dialog,
   DialogTitle,
   DialogContent,
   TextField,
